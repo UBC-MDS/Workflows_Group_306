@@ -10,5 +10,5 @@ historic_df = pd.read_csv(url1)
 current_df = pd.read_csv(url2)
 #print(historic_df.head())
 
-historic_df.to_csv(r"historic_nfl_elo.csv")
-current_df.to_csv(r"current_nfl_elo.csv")
+historic_df.to_csv("historic_nfl_elo.csv")
+current_df.to_csv("current_nfl_elo.csv")
