@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d3c577bf-21ca-4fe3-8f6a-9b955552fa8f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../Initial_eda.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../Initial_eda.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../change_of_elo_with_score.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../change_of_elo_with_score.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EDA/Initial_eda.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../EDA/Initial_eda.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +19,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="JupyterTrust" id="366e89df-29cd-45d7-8c36-1923a19397a2" />
   <component name="ProjectId" id="1Wa8u8q5p3pQ5fxqMm2cj0IPJF5" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -98,22 +98,22 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1874" height="287" key="GridCell.Tab.0.bottom" timestamp="1579387811309">
+    <state width="1874" height="287" key="GridCell.Tab.0.bottom" timestamp="1579470928558">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="287" key="GridCell.Tab.0.bottom/69.27.1851.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1579387811309" />
-    <state width="1874" height="287" key="GridCell.Tab.0.center" timestamp="1579387811308">
+    <state width="1874" height="287" key="GridCell.Tab.0.bottom/69.27.1851.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1579470928558" />
+    <state width="1874" height="287" key="GridCell.Tab.0.center" timestamp="1579470928558">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="287" key="GridCell.Tab.0.center/69.27.1851.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1579387811308" />
-    <state width="1874" height="287" key="GridCell.Tab.0.left" timestamp="1579387811308">
+    <state width="1874" height="287" key="GridCell.Tab.0.center/69.27.1851.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1579470928558" />
+    <state width="1874" height="287" key="GridCell.Tab.0.left" timestamp="1579470928558">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="287" key="GridCell.Tab.0.left/69.27.1851.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1579387811308" />
-    <state width="1874" height="287" key="GridCell.Tab.0.right" timestamp="1579387811308">
+    <state width="1874" height="287" key="GridCell.Tab.0.left/69.27.1851.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1579470928558" />
+    <state width="1874" height="287" key="GridCell.Tab.0.right" timestamp="1579470928558">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="287" key="GridCell.Tab.0.right/69.27.1851.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1579387811308" />
+    <state width="1874" height="287" key="GridCell.Tab.0.right/69.27.1851.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1579470928558" />
     <state x="2369" y="174" key="SettingsEditor" timestamp="1579377557112">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
