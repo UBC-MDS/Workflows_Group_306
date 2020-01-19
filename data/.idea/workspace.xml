@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d3c577bf-21ca-4fe3-8f6a-9b955552fa8f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../score_vs_elo.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Initial_eda.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../Initial_eda.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../change_of_elo_with_score.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../change_of_elo_with_score.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,6 +90,7 @@
       <option name="presentableId" value="Default" />
       <updated>1579376564857</updated>
       <workItem from="1579376567664" duration="2801000" />
+      <workItem from="1579388028937" duration="618000" />
     </task>
     <servers />
   </component>
