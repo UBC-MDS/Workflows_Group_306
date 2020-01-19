@@ -27,4 +27,6 @@ In addition the following graph shows that although it may seem a little low, th
 
 And finally the following graph shows how a teams ELO score changes in relation to the final score diff in points
 
-![]()
+![](https://github.com/TBarasch/Workflows_Group_306/blob/master/img/cropped.png?raw=true)
+
+Which unsuprisingly usually decreeses for the losing team, and increases for the winnning team.
