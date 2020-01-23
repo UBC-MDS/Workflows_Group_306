@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d3c577bf-21ca-4fe3-8f6a-9b955552fa8f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../EDA/Initial_eda.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../EDA/Initial_eda.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.~lock.historic_nfl_elo.csv#" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/download_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/download_data.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,6 +93,9 @@
       <updated>1579376564857</updated>
       <workItem from="1579376567664" duration="2801000" />
       <workItem from="1579388028937" duration="618000" />
+      <workItem from="1579652463024" duration="599000" />
+      <workItem from="1579659684011" duration="2892000" />
+      <workItem from="1579818137802" duration="2027000" />
     </task>
     <servers />
   </component>
