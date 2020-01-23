@@ -1,0 +1,80 @@
+---
+title: "Untitled"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message=FALSE)
+library(marmap)
+library(ggplot2)
+library(reticulate)
+library(tidyverse)
+```
+```{python import}
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from numpy.polynomial.polynomial import polyfit
+```
+
+
+## The information about columns
+```{python}
+df = pd.read_csv("../data/historic_nfl_elo.csv").set_index("Unnamed: 0")
+df.info()
+```
+
+## Correlation between columns
+```{python}
+corr = df.corr()
+# The line below couldn't render correctly in Rmarkdown
+# corr.style.background_gradient(cmap='coolwarm', axis=None).set_precision(2)
+corr#.style.background_gradient(cmap='coolwarm', axis=None).set_precision(2)
+```
+
+## Because of the major rule change effective in 1970, remove data points before 1970
+```{python}
+df_table = df[['season', 'playoff', 'elo1_pre', 'elo2_pre', 'elo_prob1', 'elo_prob2',
+       'elo1_post', 'elo2_post', 'qbelo1_pre', 'qbelo2_pre', 'qbelo_prob1', 'qbelo_prob2', 'score1', 'score2']]
+df_table = df_table[df_table['season']>1969]
+df_table = df_table[df_table['season']<2019]
+df_table['decade'] = (df_table["season"]//10)*10
+df_table
+```
+
+## Plot for season games
+```{python}
+df_xs_reg = df_table[df_table['playoff'].isna()]
+df_xs_reg['elo_diff'] = df_xs_reg['elo1_pre'] - df_xs_reg['elo2_pre']
+df_xs_reg['score_diff'] = df_xs_reg['score1'] - df_xs_reg['score2']
+df_xs_reg['is_winner'] = np.where(df_xs_reg['score_diff'] > 0, 1, 0)
+df_xs_reg['elo_change_aftergame']= df_xs_reg['elo1_post'] - df_xs_reg['elo1_pre']
+df_xs_reg
+
+x = np.array(df_xs_reg['elo_diff'])
+y = np.array(df_xs_reg['score_diff'])
+y0, m = polyfit(x, y, 1)
+
+x2 = np.array(df_xs_reg['elo_change_aftergame'])
+y2 = np.array(df_xs_reg['score_diff'])
+c2 = np.array(df_xs_reg['is_winner'])
+
+fig, ax = plt.subplots(2, 1)
+ax[0].scatter(x, y, alpha = 0.2)
+ax[0].plot(x, y0 + m * x, color='red')
+ax[0].set(xlabel='difference in ELO', 
+        ylabel='difference in score')
+ax[0].legend()
+ax[0].grid()
+
+ax[1].scatter(x2, y2, c=c2, alpha = 0.2)
+ax[1].set(xlabel='change in elo after game', 
+        ylabel = 'difference in score')
+ax[1].legend()
+ax[1].grid()
+
+plt.legend(loc = 'lower right')
+fig.tight_layout()
+fig.savefig("score_vs_elo.png")
+plt.show()
+```
