@@ -16,7 +16,7 @@ The data for this project will be the same data fivethirtyeigh uses to generate 
 We will be focusing on the years following the 1970 AFL and NFL merger, which roughly shaped the NFL as we know it today.
 
 
-The following table shows summary statistics of the elo grades by decade for winning vs losing team:
+The following table shows average statistics of the elo grades by decade for winning vs losing team:
 
 ![](https://github.com/TBarasch/Workflows_Group_306/blob/master/img/table.png?raw=true)
 
