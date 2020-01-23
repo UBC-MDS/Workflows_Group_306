@@ -111,8 +111,12 @@ Untitled
     ## 
     ## [11236 rows x 19 columns]
 
-    ## [Text(0, 0.5, 'difference in score'), Text(0.5, 0, 'difference in ELO')]
-
-    ## [Text(0, 0.5, 'difference in score'), Text(0.5, 0, 'change in elo after game')]
+    ## [Text(0, 0.5, 'difference in score'), Text(0.5, 0, 'difference in ELO'), Text(0.5, 1.0, 'Score vs pre-game ELO')]
 
 <img src="/home/franklu/MDS/Workflows_Group_306/EDA/EDA_milestone2_files/figure-gfm/unnamed-chunk-4-1.png" width="672" />
+
+    ## [Text(0, 0.5, 'difference in score'), Text(0.5, 0, 'change in elo after game'), Text(0.5, 1.0, 'Post-game ELO vs result')]
+
+<img src="/home/franklu/MDS/Workflows_Group_306/EDA/EDA_milestone2_files/figure-gfm/unnamed-chunk-4-2.png" width="672" />
+
+![](EDA_milestone2_files/figure-gfm/plot-1.png)<!-- -->

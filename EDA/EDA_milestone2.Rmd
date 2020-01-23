@@ -59,22 +59,27 @@ x2 = np.array(df_xs_reg['elo_change_aftergame'])
 y2 = np.array(df_xs_reg['score_diff'])
 c2 = np.array(df_xs_reg['is_winner'])
 
-fig, ax = plt.subplots(2, 1)
-ax[0].scatter(x, y, alpha = 0.2)
-ax[0].plot(x, y0 + m * x, color='red')
-ax[0].set(xlabel='difference in ELO', 
-        ylabel='difference in score')
-ax[0].legend()
-ax[0].grid()
-
-ax[1].scatter(x2, y2, c=c2, alpha = 0.2)
-ax[1].set(xlabel='change in elo after game', 
-        ylabel = 'difference in score')
-ax[1].legend()
-ax[1].grid()
-
-plt.legend(loc = 'lower right')
-fig.tight_layout()
-fig.savefig("score_vs_elo.png")
+fig, ax = plt.subplots()
+ax.scatter(x, y, alpha = 0.2)
+ax.plot(x, y0 + m * x, color='red')
+ax.set(xlabel='difference in ELO', 
+        ylabel='difference in score', title = 'Score vs pre-game ELO')
+ax.legend()
+ax.grid()
+fig.savefig("score_vs_pregame_elo.png")
 plt.show()
+
+fig2, ax2 = plt.subplots()
+ax2.scatter(x2, y2, c=c2, alpha = 0.2)
+ax2.set(xlabel='change in elo after game',
+        ylabel = 'difference in score', title = 'Post-game ELO vs result')
+ax2.legend(loc = 'lower right')
+ax2.grid()
+plt.show()
+```
+
+```{r plot}
+py$df_xs_reg %>%
+  mutate(is_winner = if_else(is_winner == 1, 'win', 'lose')) %>% ggplot() +
+  geom_point(aes(x = elo_change_aftergame, y = score_diff, color = is_winner))
 ```
