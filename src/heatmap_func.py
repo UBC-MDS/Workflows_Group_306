@@ -1,3 +1,5 @@
+# Copied from matplotlib's documentation page for "Creating annotated heatmaps"
+# URL: https://matplotlib.org/gallery/images_contours_and_fields/image_annotated_heatmap.html
 import numpy as np
 import pandas as pd
 import matplotlib
