@@ -1,0 +1,125 @@
+---
+title: "Untitled"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message=FALSE)
+library(marmap)
+library(ggplot2)
+library(reticulate)
+library(tidyverse)
+```
+```{python import}
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from matplotlib.pyplot import figure
+from numpy.polynomial.polynomial import polyfit
+import heatmap_func as hp
+```
+
+
+## The information about columns
+```{python read csv}
+df = pd.read_csv("../data/historic_nfl_elo.csv").set_index("Unnamed: 0")
+df.info()
+```
+
+## Correlation between columns
+```{python correlation heatmap}
+corr = df.corr()
+ylabels = list(corr.index)
+xlabels = list(corr.columns)
+
+corr_arr = np.array(corr)
+corr_arr = np.round(corr_arr, 1)
+
+fig, ax = plt.subplots()
+plt.rcParams["figure.figsize"] = [500, 500]
+plt.rcParams.update({'font.size': 5})
+
+im, cbar = hp.heatmap(corr_arr, ylabels, xlabels, ax=ax,
+                   cmap="YlGn", cbarlabel="correlation")
+texts = hp.annotate_heatmap(im, valfmt=" {x:.1f} ")
+
+fig.tight_layout()
+fig.savefig('../img/eda-heatmap_for_correlations.png', dpi=200)
+# # fig.set_size_inches(1, 16)
+plt.show()
+```
+
+## Because of the major rule change effective in 1970, remove data points before 1970
+```{python}
+eda_cols = ['season', 'playoff', 'elo1_pre', 'elo2_pre', 'elo_prob1', 'elo_prob2', 'elo1_post', 'elo2_post', 'qbelo1_pre', 'qbelo2_pre', 'qbelo_prob1', 'qbelo_prob2', 'score1', 'score2']
+
+df_table = df[eda_cols]
+df_table['decade'] = (df_table["season"]//10)*10
+df_xs_reg = df_table.query('season > 1969 & season < 2019')
+df_xs_reg.loc[:, 'elo_diff'] = df_xs_reg['elo1_pre'] - df_xs_reg['elo2_pre']
+df_xs_reg.loc[:, 'score_diff'] = df_xs_reg['score1'] - df_xs_reg['score2']
+df_xs_reg.loc[:, 'is_winner'] = np.where(df_xs_reg['score_diff'] > 0, 1, 0)
+df_xs_reg.loc[:, 'elo_change_aftergame'] = df_xs_reg['elo1_post'] - df_xs_reg['elo1_pre']
+
+conditions = [
+  (df_xs_reg['elo_diff'] > 0) & (df_xs_reg['score_diff'] > 0),
+  (df_xs_reg['elo_diff'] < 0) & (df_xs_reg['score_diff'] > 0),
+  (df_xs_reg['elo_diff'] > 0) & (df_xs_reg['score_diff'] < 0),
+  (df_xs_reg['elo_diff'] < 0) & (df_xs_reg['score_diff'] < 0),
+  (df_xs_reg['elo_diff'] < 0) & (df_xs_reg['score_diff'] == 0),
+  (df_xs_reg['elo_diff'] > 0) & (df_xs_reg['score_diff'] == 0)
+]
+choices = [
+  'high_elo_win', 'low_elo_win', 'high_elo_lose', 'low_elo_lose', 'low_elo_tie', 'high_elo_tie'
+]
+df_xs_reg['elo_vs_result'] = np.select(conditions, choices, default = 'not_sure')
+
+elo_vs_result = df_xs_reg.groupby('elo_vs_result')['elo_vs_result'].count()
+elo_vs_result.to_csv('../data/eda-elo_vs_result.csv')
+
+df_xs_reg
+```
+
+## Plot for season games
+```{python}
+df_xs_reg = df_table.query('season > 1969 & season < 2019')
+df_xs_reg.loc[:, 'elo_diff'] = df_xs_reg['elo1_pre'] - df_xs_reg['elo2_pre']
+df_xs_reg.loc[:, 'score_diff'] = df_xs_reg['score1'] - df_xs_reg['score2']
+df_xs_reg.loc[:, 'is_winner'] = np.where(df_xs_reg['score_diff'] > 0, 1, 0)
+df_xs_reg.loc[:, 'elo_change_aftergame'] = df_xs_reg['elo1_post'] - df_xs_reg['elo1_pre']
+df_xs_reg
+
+x = np.array(df_xs_reg['elo_diff'])
+y = np.array(df_xs_reg['score_diff'])
+y0, m = polyfit(x, y, 1)
+
+x2 = np.array(df_xs_reg['elo_change_aftergame'])
+y2 = np.array(df_xs_reg['score_diff'])
+c2 = np.array(df_xs_reg['is_winner'])
+
+fig, ax = plt.subplots()
+ax.scatter(x, y, alpha = 0.2)
+ax.plot(x, y0 + m * x, color='red')
+ax.set(xlabel='difference in ELO', 
+        ylabel='difference in score', title = 'Score vs pre-game ELO')
+ax.legend()
+ax.grid()
+fig.savefig("../img/eda-score_vs_pregame_elo.png")
+plt.show()
+
+fig2, ax2 = plt.subplots()
+ax2.scatter(x2, y2, c=c2, alpha = 0.2)
+ax2.set(xlabel='change in elo after game',
+        ylabel = 'difference in score', title = 'Post-game ELO vs result')
+ax2.legend(loc = 'lower right')
+ax2.grid()
+plt.show()
+```
+
+```{r plot}
+py$df_xs_reg %>%
+  mutate(is_winner = if_else(is_winner == 1, 'win', 'lose')) %>% ggplot() +
+  geom_point(aes(x = score_diff, y = elo_change_aftergame, color = is_winner)) +
+  labs(y = 'Change in ELO after games', x = 'difference in score', title = 'ELO change due to game result') + 
+  ggsave(filename = '../img/eda-ELO_change_with_result.png')
+```
