@@ -21,13 +21,13 @@ import heatmap_func as hp
 
 
 ## The information about columns
-```{python}
+```{python read csv}
 df = pd.read_csv("../data/historic_nfl_elo.csv").set_index("Unnamed: 0")
 df.info()
 ```
 
 ## Correlation between columns
-```{python}
+```{python correlation heatmap}
 corr = df.corr()
 ylabels = list(corr.index)
 xlabels = list(corr.columns)
@@ -51,17 +51,38 @@ plt.show()
 
 ## Because of the major rule change effective in 1970, remove data points before 1970
 ```{python}
-df_table = df[['season', 'playoff', 'elo1_pre', 'elo2_pre', 'elo_prob1', 'elo_prob2',
-       'elo1_post', 'elo2_post', 'qbelo1_pre', 'qbelo2_pre', 'qbelo_prob1', 'qbelo_prob2', 'score1', 'score2']]
-df_table = df_table[df_table['season']>1969]
-df_table = df_table[df_table['season']<2019]
+eda_cols = ['season', 'playoff', 'elo1_pre', 'elo2_pre', 'elo_prob1', 'elo_prob2', 'elo1_post', 'elo2_post', 'qbelo1_pre', 'qbelo2_pre', 'qbelo_prob1', 'qbelo_prob2', 'score1', 'score2']
+
+df_table = df[eda_cols]
 df_table['decade'] = (df_table["season"]//10)*10
-df_table
+df_xs_reg = df_table.query('season > 1969 & season < 2019')
+df_xs_reg.loc[:, 'elo_diff'] = df_xs_reg['elo1_pre'] - df_xs_reg['elo2_pre']
+df_xs_reg.loc[:, 'score_diff'] = df_xs_reg['score1'] - df_xs_reg['score2']
+df_xs_reg.loc[:, 'is_winner'] = np.where(df_xs_reg['score_diff'] > 0, 1, 0)
+df_xs_reg.loc[:, 'elo_change_aftergame'] = df_xs_reg['elo1_post'] - df_xs_reg['elo1_pre']
+
+conditions = [
+  (df_xs_reg['elo_diff'] > 0) & (df_xs_reg['score_diff'] > 0),
+  (df_xs_reg['elo_diff'] < 0) & (df_xs_reg['score_diff'] > 0),
+  (df_xs_reg['elo_diff'] > 0) & (df_xs_reg['score_diff'] < 0),
+  (df_xs_reg['elo_diff'] < 0) & (df_xs_reg['score_diff'] < 0),
+  (df_xs_reg['elo_diff'] < 0) & (df_xs_reg['score_diff'] == 0),
+  (df_xs_reg['elo_diff'] > 0) & (df_xs_reg['score_diff'] == 0)
+]
+choices = [
+  'high_elo_win', 'low_elo_win', 'high_elo_lose', 'low_elo_lose', 'low_elo_tie', 'high_elo_tie'
+]
+df_xs_reg['elo_vs_result'] = np.select(conditions, choices, default = 'not_sure')
+
+elo_vs_result = df_xs_reg.groupby('elo_vs_result')['elo_vs_result'].count()
+elo_vs_result.to_csv('elo_vs_result.csv')
+
+df_xs_reg
 ```
 
 ## Plot for season games
 ```{python}
-df_xs_reg = df_table[df_table['playoff'].isna()]
+df_xs_reg = df_table.query('season > 1969 & season < 2019')
 df_xs_reg.loc[:, 'elo_diff'] = df_xs_reg['elo1_pre'] - df_xs_reg['elo2_pre']
 df_xs_reg.loc[:, 'score_diff'] = df_xs_reg['score1'] - df_xs_reg['score2']
 df_xs_reg.loc[:, 'is_winner'] = np.where(df_xs_reg['score_diff'] > 0, 1, 0)
@@ -100,5 +121,5 @@ py$df_xs_reg %>%
   mutate(is_winner = if_else(is_winner == 1, 'win', 'lose')) %>% ggplot() +
   geom_point(aes(x = score_diff, y = elo_change_aftergame, color = is_winner)) +
   labs(y = 'Change in ELO after games', x = 'difference in score', title = 'ELO change due to game result') + 
-  ggsave(filename = 'ELO_change_result.png')
+  ggsave(filename = 'ELO_change_with_result.png')
 ```
