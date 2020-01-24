@@ -44,7 +44,7 @@ im, cbar = hp.heatmap(corr_arr, ylabels, xlabels, ax=ax,
 texts = hp.annotate_heatmap(im, valfmt=" {x:.1f} ")
 
 fig.tight_layout()
-fig.savefig('heatmap_for_correlations.png', dpi=200)
+fig.savefig('../img/eda-heatmap_for_correlations.png', dpi=200)
 # # fig.set_size_inches(1, 16)
 plt.show()
 ```
@@ -75,7 +75,7 @@ choices = [
 df_xs_reg['elo_vs_result'] = np.select(conditions, choices, default = 'not_sure')
 
 elo_vs_result = df_xs_reg.groupby('elo_vs_result')['elo_vs_result'].count()
-elo_vs_result.to_csv('elo_vs_result.csv')
+elo_vs_result.to_csv('../data/eda-elo_vs_result.csv')
 
 df_xs_reg
 ```
@@ -104,7 +104,7 @@ ax.set(xlabel='difference in ELO',
         ylabel='difference in score', title = 'Score vs pre-game ELO')
 ax.legend()
 ax.grid()
-fig.savefig("score_vs_pregame_elo.png")
+fig.savefig("../img/eda-score_vs_pregame_elo.png")
 plt.show()
 
 fig2, ax2 = plt.subplots()
@@ -121,5 +121,5 @@ py$df_xs_reg %>%
   mutate(is_winner = if_else(is_winner == 1, 'win', 'lose')) %>% ggplot() +
   geom_point(aes(x = score_diff, y = elo_change_aftergame, color = is_winner)) +
   labs(y = 'Change in ELO after games', x = 'difference in score', title = 'ELO change due to game result') + 
-  ggsave(filename = 'ELO_change_with_result.png')
+  ggsave(filename = '../img/eda-ELO_change_with_result.png')
 ```
