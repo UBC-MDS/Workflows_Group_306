@@ -20,8 +20,8 @@ import pandas as pd
 import numpy as np
 
 # full command for each file:
-#  python src/wrangle.py --input="data/elo_historic_raw.csv" --out_file="data/elo_historic_wrangled.csv"
-#  python src/wrangle.py --url="data/elo_2019_raw.csv" --out_file="data/elo_2019_wrangled.csv"
+#  python src/wrangle.py --input="data/elo_historic_raw.csv" --out_dir="data/elo_historic_wrangled.csv"
+#  python src/wrangle.py --url="data/elo_2019_raw.csv" --out_dir="data/elo_2019_wrangled.csv"
 
 opt = docopt(__doc__)
 
