@@ -20,8 +20,8 @@ library(dplyr)
 ```
 
 ```{r load model results}
-score_rf <- read.delim("data/rf_score.csv")
-score_lr <- read.delim("data/lr_score.csv")
+score_rf <- read.delim("../data/rf_score.csv")
+score_lr <- read.delim("../data/lr_score.csv")
 ```
 
 # Summary
