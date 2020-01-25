@@ -1,0 +1,59 @@
+---
+title: "Untitled"
+author: "Simardeep Kaur"
+date: "1/25/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+library(reticulate)
+library(dplyr)
+```
+```{r}
+score_rf <- read.delim("data/rf_score.csv")
+score_lr <- read.delim("data/lr_score.csv")
+
+```
+
+
+
+
+
+We have used two classification models to see how the elo ratings will affect the the predicted scores.
+Logistic regression and random forest classification are used in this model
+
+Variables used:
+
+ There were variables like scores of the teams which are removed from the data set. Also, after each game, elo rating of the team changes depending on whether a team wins or loses. So, we removed all the variables which give information about the status of the team after the game. 
+
+Information which uniquely identifies  a team is also removed because that could bias the results by giving information about which teams are performing better than other teams. So, removing this identifiers for different teams was an important step to get unbiased results.
+
+Hyperparameters:
+
+Hyperparameter “max_depth” is chosen using 5- fold cross validation. The best hyperparameter was then used to train the model.
+
+Both the models give almost similar results. 
+
+Accuracy score obtained by using Random forest classifier is `r round(score_rf$rf_score, 3)`.
+
+Confusion matrix for random forest classification :
+
+<html>
+  <img src = 'img/disp_rf.jpg' />
+</html>
+
+Accuracy score obtained by using Logistic regression is `r round(score_lr$lr_score, 3)`.
+
+Confusion matrix for Logistic regression :
+
+<html>
+  <img src = 'img/disp_lr.jpg' />
+</html>
+
+
+
+
+
