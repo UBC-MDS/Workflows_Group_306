@@ -1,4 +1,7 @@
 
+#author : Simardeep Kaur
+#date : 25 January, 2020
+
 """ Runs classification model on the cleaned data to get the accuarcy on the test results
 
 Usage: src/model.py --train_file=<train_file> --test_file=<test_file> 
@@ -52,18 +55,20 @@ def main(train_file, test_file):
     #Random forest Classification
     parameters = {'max_depth':[2,4,6]}
     model = RandomForestClassifier()
-    clf = GridSearchCV(model, parameters)
+    clf = GridSearchCV(model, parameters, cv = 5)
     clf.fit(X, y) 
-    rf_score = clf.score(X_test, y_test) 
-    with open('data/rfscore.txt', 'w') as f:
-        f.write('%0.4f' %rf_score)
+    rf_score = clf.score(X_test, y_test)
+    rf_data =  pd.DataFrame({'rf_score':[round(rf_score, 3)]})
+    rf_data.to_csv(path_or_buf='data/rf_score.csv', index = False)
+    
 
     #Logistic Regression
     lr_model = LogisticRegression(solver = 'liblinear')
     lr_model.fit(X, y)
     lr_Score = lr_model.score(X_test, y_test)
-    with open('data/lrscore.txt', 'w') as f:
-        f.write('%0.4f' %lr_Score)
+    lr_data =  pd.DataFrame({'lr_score':[round(lr_Score, 3)]})
+    lr_data.to_csv(path_or_buf='data/lr_score.csv', index = False)
+    
     
 
     disp = plot_confusion_matrix(clf, X_test, y_test,
