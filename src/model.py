@@ -1,4 +1,7 @@
 
+#author : Simardeep Kaur
+#date : 25 January, 2020
+
 """ Runs classification model on the cleaned data to get the accuarcy on the test results
 
 Usage: src/model.py --train_file=<train_file> --test_file=<test_file> 
