@@ -56,20 +56,17 @@ Each row in each file containins the ELO ratings pre and post game for the two N
 
 ## Analysis
 We have used two classification models to see how the elo ratings will affect the the predicted scores.
-The Python [!!!] programming language, using the Scikit-Learn package [!!!] we trained a Logistic regression and Random Forest classification algorithems.
+The Python [!!!] programming language, using the Scikit-Learn package [!!!] we trained a Logistic regression and Random Forest classification algorithems. Since it would be redundent to predict both winner and loser for a single game, all predictions were made in relation to the home team, with 3 possible outcomes: Win, Tie, Lose.
+For the data used to train the model, all seasons prior to the 1970 NFL merger were filtered out, only using data since the NFL started its  shift towards the structure that is used today, with teams split into two confrences, mostly playing against other teams in their confrence.
 
 ###Variables used:
-From the original file, any variable relating to the outcome of the game was removed, such as post game elo score, each teams actual etc', we In addition information which uniquely identifies a team out side of the ELO framework was removed since it could bias the results by giving information about which teams are performing better. So, removing this identifiers for different teams was an important step to get unbiased results.
+From the original file, any variable relating to the outcome of the game was removed, such as post game elo score, each teams actual score etc'. In addition information which uniquely identifies a team outside of the ELO framework, such as team name and QB name, was removed since it could bias the results by giving information about which teams are performing better. So, removing this identifiers for different teams was an important step to get unbiased results.
 
 ###Hyperparameters:
 For the Random Forest modle, the hyperparameter “max_depth” is chosen using k-fold cross validation using k=5. The best hyperparameter was then used to train the model.
 
 The code used to run the training and testing of the algorithems can be found at the projects github repo [here](https://github.com/UBC-MDS/Workflows_Group_306): 
-
-!!!!!!!!!!!!!!!!!!!!!!!!!!
-Both the models give almost similar results. 
-The k-nearest neighbors (k-nn) algorithm was used to build a classification model to predict whether a tumour mass was benign or malignant (found in the class column of the data set). All variables included in the original data set, with the exception of the standard error of fractal dimension, smoothness, symmetry and texture were used to fit the model. The hyperparameter $K$ was chosen using 30-fold cross validation with Cohen's Kappa as the classification metric. The R and Python programming languages [@R; @Python] and the following R and Python packages were used to perform the analysis: caret [@caret], docopt [@docopt], feather [@featherr], knitr [@knitr], tidyverse [@tidyverse], docopt [@docoptpython], os [@Python], feather [@featherpy] Pandas [@mckinney-proc-scipy-2010]. The code used to perform the analysis and create this report can be found here: https://github.com/ttimbers/breast_cancer_predictor.
-!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!! add refrences and citations !!!
 
 # Results & Discussion
 
