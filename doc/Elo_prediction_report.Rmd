@@ -7,6 +7,7 @@ output:
   html_document:
     toc: true
 bibliography: nfl_elo.bib
+nocite: '@*'
 ---
 
 ```{r setup, include=FALSE}
