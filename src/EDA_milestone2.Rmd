@@ -22,7 +22,7 @@ import heatmap_func as hp
 
 ## The information about columns
 ```{python read csv}
-df = pd.read_csv("../data/historic_nfl_elo.csv").set_index("Unnamed: 0")
+df = pd.read_csv("../data/elo_historic_raw.csv").set_index("Unnamed: 0")
 df.info()
 ```
 
