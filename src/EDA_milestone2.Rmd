@@ -22,7 +22,7 @@ import heatmap_func as hp
 
 ## The information about columns
 ```{python read csv}
-df = pd.read_csv("../data/historic_nfl_elo.csv").set_index("Unnamed: 0")
+df = pd.read_csv("../data/elo_historic_raw.csv").set_index("Unnamed: 0")
 df.info()
 ```
 
@@ -36,7 +36,7 @@ corr_arr = np.array(corr)
 corr_arr = np.round(corr_arr, 1)
 
 fig, ax = plt.subplots()
-plt.rcParams["figure.figsize"] = [500, 500]
+plt.rcParams["figure.figsize"] = [10, 10]
 plt.rcParams.update({'font.size': 5})
 
 im, cbar = hp.heatmap(corr_arr, ylabels, xlabels, ax=ax,

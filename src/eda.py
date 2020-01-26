@@ -1,11 +1,12 @@
 """ Runs classification model on the cleaned data to get the accuarcy on the test results
 
-Usage: src/eda.py --source=<source> --correlation=<correlation> --elo_win=<elo_win> --eda_score=<eda_score>
+Usage: src/eda.py --source=<source> --correlation=<correlation> --elo_win=<elo_win> --eda_score=<eda_score> --result_elo=<result_elo>
 
 """
 
 import numpy as np
 import pandas as pd
+import altair as alt
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import figure
 from numpy.polynomial.polynomial import polyfit
@@ -14,7 +15,7 @@ from docopt import docopt
 
 opt = docopt(__doc__)
 
-def main(source, correlation, elo_win, eda_score):
+def main(source, correlation, elo_win, eda_score, result_elo):
   # source = "../data/elo_historic_raw.csv"
   df = pd.read_csv(source).set_index("Unnamed: 0")
   
@@ -76,31 +77,39 @@ def main(source, correlation, elo_win, eda_score):
   
   print("** finish wrangling")
   
-  x = np.array(df_xs_reg['elo_diff'])
-  y = np.array(df_xs_reg['score_diff'])
-  y0, m = polyfit(x, y, 1)
+  alt.data_transformers.disable_max_rows()
+
+  base = alt.Chart(df_xs_reg).mark_circle(opacity = 0.5).encode(
+      alt.X('elo_diff:Q', title = 'Difference in elo (home - away)'),
+      alt.Y('score_diff:Q', title = 'Difference in scores (home - away)')
+  ).properties(
+      title = 'Diff in score vs diff in ELO',# hopefully I call this right
+      height = 600,
+      width = 800
+  )
   
-  x2 = np.array(df_xs_reg['elo_change_aftergame'])
-  y2 = np.array(df_xs_reg['score_diff'])
-  c2 = np.array(df_xs_reg['is_winner'])
+  order = 1
+  lin_fit = base.transform_regression(
+      'elo_diff', 'score_diff', method = 'poly', order = order, as_ = ['elo_diff', str(order)]
+  ).mark_line(color = 'red').transform_fold(
+      [str(order)], as_ = ['degree', 'score_diff']
+  ).encode()
   
-  print("** ready to plot")
-  fig2, ax = plt.subplots()
-  plt.rcParams["figure.figsize"] = [200, 200]
-  ax.scatter(x, y, alpha = 0.2)
-  ax.plot(x, y0 + m * x, color='red')
-  print("** here i am")
-  ax.set(xlabel='difference in ELO', 
-          ylabel='difference in score', title = 'Score vs pre-game ELO')
-  # ax.legend()
-  # ax.grid()
-  # fig2.tight_layout()
-  # eda_score = "../img/eda-score_vs_pregame_elo.png"
-  print("** ready to save")
-  fig2.savefig(eda_score, dpi = 200)
-  print("** plot saved")
-  # plt.show()
+  chart = alt.layer(base, lin_fit)
+  chart.save(eda_score)
+  
+  p2 = alt.Chart(df_xs_reg).mark_point().encode(
+    alt.Y("elo_change_aftergame:Q", title = 'ELO change after game'),
+    alt.X("score_diff:Q", title = 'difference in score'),
+    alt.Color('is_winner:O')
+  ).properties(
+    title = 'Game result change ELO',# hopefully I call this right
+      height = 600,
+      width = 800
+  )
+  
+  p2.save(result_elo)
   
   
 if __name__ == "__main__":
-    main(opt["--source"], opt["--correlation"], opt["--elo_win"], opt["--eda_score"])
+    main(opt["--source"], opt["--correlation"], opt["--elo_win"], opt["--eda_score"], opt["--result_elo"])
