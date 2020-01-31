@@ -15,6 +15,9 @@ from docopt import docopt
 
 opt = docopt(__doc__)
 
+# calling example
+# python src/eda2.py --source=data/elo_historic_raw.csv --correlation=img/eda-heatmap_for_correlations.png --elo_win=data/eda-elo_vs_result.csv --eda_score=img/elo_lnrg.png --result_elo=img/elo_change.png
+
 def main(source, correlation, elo_win, eda_score, result_elo):
   # source = "../data/elo_historic_raw.csv"
   df = pd.read_csv(source).set_index("Unnamed: 0")
