@@ -1,0 +1,158 @@
+---
+title: "EDA"
+params:
+  elo_lnrg: "../img/elo_lnrg.png"
+output: 
+  github_document:
+    pandoc_args: --webtex
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message=FALSE)
+library(marmap)
+library(ggplot2)
+library(reticulate)
+library(tidyverse)
+```
+```{python import}
+import numpy as np
+import pandas as pd
+import altair as alt
+import matplotlib.pyplot as plt
+from matplotlib.pyplot import figure
+from numpy.polynomial.polynomial import polyfit
+import heatmap_func as hp
+```
+
+
+## The information about columns
+```{python read csv}
+df = pd.read_csv("../data/elo_historic_raw.csv").set_index("Unnamed: 0")
+df.info()
+```
+
+```{python select columns}
+eda_cols = ['season', 'playoff', 'elo1_pre', 'elo2_pre', 'elo1_post', 'elo2_post', 'score1', 'score2']
+
+df_table = df[eda_cols]
+df_table
+```
+
+## Correlation between columns
+```{python correlation heatmap}
+corr = df_table.corr()
+ylabels = list(corr.index)
+xlabels = list(corr.columns)
+
+corr_arr = np.array(corr)
+corr_arr = np.round(corr_arr, 1)
+
+fig, ax = plt.subplots()
+# plt.rcParams["figure.figsize"] = [10, 10]
+plt.rcParams.update({'font.size': 5})
+
+im, cbar = hp.heatmap(corr_arr, ylabels, xlabels, ax=ax,
+                   cmap="YlGn", cbarlabel="correlation")
+texts = hp.annotate_heatmap(im, valfmt=" {x:.1f} ")
+
+fig.tight_layout()
+fig.savefig('../img/eda-heatmap_for_correlations.png', dpi=200)
+# # fig.set_size_inches(1, 16)
+plt.show()
+```
+
+## Because of the major rule change effective in 1970, remove data points before 1970
+```{python elo change}
+df_table.loc[:, 'decade'] = (df_table["season"]//10)*10
+df_xs_reg = df_table.query('season > 1969 & season < 2019')
+df_xs_reg.loc[:, 'elo_diff'] = df_xs_reg['elo1_pre'] - df_xs_reg['elo2_pre']
+df_xs_reg.loc[:, 'score_diff'] = df_xs_reg['score1'] - df_xs_reg['score2']
+df_xs_reg.loc[:, 'is_winner'] = np.where(df_xs_reg['score_diff'] > 0, 1, 0)
+df_xs_reg.loc[:, 'elo_change_aftergame'] = df_xs_reg['elo1_post'] - df_xs_reg['elo1_pre']
+
+conditions = [
+  (df_xs_reg['elo_diff'] > 0) & (df_xs_reg['score_diff'] > 0),
+  (df_xs_reg['elo_diff'] < 0) & (df_xs_reg['score_diff'] > 0),
+  (df_xs_reg['elo_diff'] > 0) & (df_xs_reg['score_diff'] < 0),
+  (df_xs_reg['elo_diff'] < 0) & (df_xs_reg['score_diff'] < 0),
+  (df_xs_reg['elo_diff'] < 0) & (df_xs_reg['score_diff'] == 0),
+  (df_xs_reg['elo_diff'] > 0) & (df_xs_reg['score_diff'] == 0)
+]
+choices = [
+  'high_elo_win', 'low_elo_win', 'high_elo_lose', 'low_elo_lose', 'low_elo_tie', 'high_elo_tie'
+]
+df_xs_reg.loc[:, 'elo_vs_result'] = np.select(conditions, choices, default = 'not_sure')
+
+elo_vs_result = df_xs_reg.groupby('elo_vs_result')['elo_vs_result'].count()
+elo_vs_result.to_csv('../data/eda-elo_vs_result.csv')
+
+df_xs_reg
+```
+
+## Plot for season games
+```{python plots}
+df_xs_reg = df_table.query('season > 1969 & season < 2019')
+df_xs_reg.loc[:, 'elo_diff'] = df_xs_reg['elo1_pre'] - df_xs_reg['elo2_pre']
+df_xs_reg.loc[:, 'score_diff'] = df_xs_reg['score1'] - df_xs_reg['score2']
+df_xs_reg.loc[:, 'is_winner'] = np.where(df_xs_reg['score_diff'] > 0, 1, 0)
+df_xs_reg.loc[:, 'elo_change_aftergame'] = df_xs_reg['elo1_post'] - df_xs_reg['elo1_pre']
+
+x = np.array(df_xs_reg['elo_diff'])
+y = np.array(df_xs_reg['score_diff'])
+y0, m = polyfit(x, y, 1)
+
+x2 = np.array(df_xs_reg['elo_change_aftergame'])
+y2 = np.array(df_xs_reg['score_diff'])
+c2 = np.array(df_xs_reg['is_winner'])
+
+fig, ax = plt.subplots()
+ax.scatter(x, y, alpha = 0.2)
+ax.plot(x, y0 + m * x, color='red')
+ax.set(xlabel='difference in ELO', 
+        ylabel='difference in score', title = 'Score vs pre-game ELO')
+ax.legend()
+ax.grid()
+fig.savefig(r.params['elo_lnrg'])
+plt.show()
+
+fig2, ax2 = plt.subplots()
+ax2.scatter(x2, y2, c=c2, alpha = 0.2)
+ax2.set(xlabel='change in elo after game',
+        ylabel = 'difference in score', title = 'Post-game ELO vs result')
+ax2.legend(loc = 'lower right')
+ax2.grid()
+plt.show()
+
+# alt.data_transformers.disable_max_rows()
+# 
+# base = alt.Chart(df_xs_reg).mark_circle(opacity = 0.5).encode(
+#     alt.X('elo_diff:Q', title = 'Difference in elo (home - away)'),
+#     alt.Y('score_diff:Q', title = 'Difference in scores (home - away)')
+# ).properties(
+#     title = 'Diff in score vs diff in ELO',# hopefully I call this right
+#     height = 600,
+#     width = 800
+# )
+# 
+# order = 1
+# lin_fit = base.transform_regression(
+#     'elo_diff', 'score_diff', method = 'poly', order = order, as_ = ['elo_diff', str(order)]
+# ).mark_line(color = 'red').transform_fold(
+#     [str(order)], as_ = ['degree', 'score_diff']
+# ).encode()
+# 
+# chart = alt.layer(base, lin_fit)
+# chart.save(r.params['elo_lnrg'])
+
+# p2 = alt.Chart(df_xs_reg).mark_point().encode(
+#   alt.Y("elo_change_aftergame:Q", title = 'ELO change after game'),
+#   alt.X("score_diff:Q", title = 'difference in score'),
+#   alt.Color('is_winner:O')
+# ).properties(
+#   title = 'Game result change ELO',# hopefully I call this right
+#     height = 600,
+#     width = 800
+# )
+# 
+# p2.save(elo_change)
+```
