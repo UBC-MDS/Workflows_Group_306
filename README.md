@@ -21,7 +21,7 @@ The final report HTML can be found [here](https://github.com/UBC-MDS/Workflows_G
 ## Usage
 To run this analysis, clone this github repo, install the dependencies as listed below and run the following code in the command line/terminal from the root directory of this project:
 
-## Dependencies
+### Dependencies
 - Python 3.7.3 and Python packages:
   - docopt==0.6.2
   - requests==2.22.0
@@ -33,10 +33,16 @@ To run this analysis, clone this github repo, install the dependencies as listed
 - Linux 18.04 LTS
   - Make==4.1
 
-
+### Scripts
+- To create the report, run the command below from terminal:
 ```
 make all
-```  
+```
+
+- To clean all the intermediate files, run the command below:
+```
+make clean
+```
 
 
 ## Refrences
