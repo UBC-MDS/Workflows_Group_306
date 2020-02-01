@@ -6,7 +6,7 @@ always_allow_html: true
 output: 
   github_document:
     toc: true
-bibliography: nfl_elo.bib
+bibliography: ../doc/nfl_elo.bib
 nocite: '@*'
 ---
 
