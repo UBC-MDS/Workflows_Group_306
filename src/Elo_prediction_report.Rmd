@@ -3,10 +3,10 @@ title: "Predicting NFL game winners with ELO rating"
 author: "Frank Lu, Simardeep Kaur, Tani Barasch </br>"
 date: "2020/01/25 (updated: `r Sys.Date()`)"
 always_allow_html: true
-output: 
+output:
   github_document:
     toc: true
-bibliography: nfl_elo.bib
+bibliography: ../doc/nfl_elo.bib
 nocite: '@*'
 ---
 
@@ -55,7 +55,7 @@ In order to test whether or not the hypothesis that NFL games can be predicted u
 # Methods
 
 ## Data
-The data set used to train and test our algorithems is the same data used by FiveThirtyEight[@fivethirtyeight] in their game, which can be found [here](https://github.com/fivethirtyeight/data/tree/master/nfl-elo). Specifically the file found [here](https://projects.fivethirtyeight.com/nfl-api/nfl_elo.csv) containing historic nfl ratings and outcomes starting in 1920 was used to train the algorithems, and testing the predictions were done on the following file containing all [2019-2020](https://projects.fivethirtyeight.com/nfl-api/nfl_elo_latest.csv) NFL games and outcomes (excluding the superbowl which has yet to be played.) 
+The data set used to train and test our algorithems is the same data used by FiveThirtyEight[@fivethirtyeight] in their game, which can be found [here](https://github.com/fivethirtyeight/data/tree/master/nfl-elo). Specifically the file found [here](https://projects.fivethirtyeight.com/nfl-api/nfl_elo.csv) containing historic nfl ratings and outcomes starting in 1920 was used to train the algorithems, and testing the predictions were done on the following file containing all [2019-2020](https://projects.fivethirtyeight.com/nfl-api/nfl_elo_latest.csv) NFL games and outcomes (excluding the superbowl which has yet to be played.)
 
 Each row in each file contains the ELO ratings pre and post game for the two NFL teams and starting Quarterbacks participating in that specific game, along with the date, season, and final score of the game. Where the home team is logged as team1 and the away team as team2.
 
@@ -82,7 +82,7 @@ From the original file, any variable relating to the outcome of the game was rem
 ### Hyperparameters:
 For the Random Forest modle, the hyperparameter “max_depth” is chosen using k-fold cross validation using k=5. The best hyperparameter was then used to train the model.
 
-The code used to run the training and testing of the algorithems can be found at the projects github repo [here](https://github.com/UBC-MDS/Workflows_Group_306): 
+The code used to run the training and testing of the algorithems can be found at the projects github repo [here](https://github.com/UBC-MDS/Workflows_Group_306):
 
 
 # Results & Discussion
@@ -108,4 +108,3 @@ With both models prediction accuracy below 80%, its would be hard to proclaim th
 That being said it is possible that a regression method to predict the scores would do better, or alternatively including ELO ratings in a more complex and robust model could prove usefull.
 
 # References
-
