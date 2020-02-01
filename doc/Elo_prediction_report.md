@@ -15,6 +15,7 @@ Frank Lu, Simardeep Kaur, Tani Barasch </br>
   - [Results & Discussion](#results-discussion)
   - [References](#references)
 
+
 # Summary
 
 In this project we attempt to predict NFL game winners using
@@ -24,7 +25,9 @@ outcome as presented by the website FiveThirtyEight.com in their ‘NFL
 Prediction Game’.
 
 We find that both models achieve similar results, with 0.771% accuracy
-for the logistic regression and 0.756% accuracy for the random forest
+
+for the logistic regression and 0.767% accuracy for the random forest
+
 classifier. Which overall is a pretty unreliable prediction model,
 casting doubt over the method presented by FiveThirtyEight.
 
@@ -52,7 +55,9 @@ points by winning/performing better then expected, and have their
 ranking reduced when they lose/perform worse then expected. The system
 was originally invented by Arpad Elo for the world of chess and has
 since gained popularity in a few competitive sports as well as online
+
 games particularly team games (Wikipedia, n.d.).
+
 
 Since the system is relative, a change in ones ranking depends not only
 on their performance, but also on who the opponent was. Performing well
@@ -61,6 +66,7 @@ significant raise in ranking or a smaller lose if one loses, while
 performing well against a lower ranked opponent will not raise ones rank
 significantly but may result in a significant lose of points in case of
 a poor performance.
+
 
 In general the expected performance of player A is depicted with the
 following equation: \[E(A) = \frac{1}{1+10^{(\frac{R_A - R_B}{400})}}\]
@@ -110,7 +116,9 @@ does not require data to be scaled which reduces a lot of
 pre-processing.
 
 As we know that random forest works by using multiple decision trees.
+
 All the decision trees involved in random forest operate in parallel,
+
 which reduces the computation . Random forest perform really well on
 high dimensional data because it works with subsets of data. Since, we
 have large amount of data to process for our training model, random
@@ -150,7 +158,9 @@ could bias the results by relating information such as team performence
 for any given season. So, removing this identifiers for different teams
 was an important step to get unbiased results.
 
+
 ### Hyperparameters:
+
 
 For the Random Forest modle, the hyperparameter “max\_depth” is chosen
 using k-fold cross validation using k=5. The best hyperparameter was
@@ -164,7 +174,9 @@ found at the projects github repo
 
 Examining the results of our model, we find that both models, the
 Logistic Regression and Random Forest performed very similarly at 0.771%
-and 0.756% accurace respectively. Indicating that although the results
+
+and 0.767% accurace respectively. Indicating that although the results
+
 are better then randomly guessing, or flipping a coin, such results are
 hardly reliable.
 
@@ -175,13 +187,39 @@ simple model should not be underestimated.
 In the confusion matrix below we can see the “hits and misses” of the
 logistic regression model on the 2019-2020 season games, missing
 relatively more often when the home team loses with a 36.5% error rate
-and a 23.2% error rate for home team wins.
-<img src="../img/disp_lr.jpg" title="Figure 1. Logistic Regression Confusion Matrix." alt="Figure 1. Logistic Regression Confusion Matrix." width="90%" />
+
+and a 23.2% error rate for home team
+wins.
+
+<div class="figure">
+
+<img src="../img/disp_lr.jpg" alt="Figure 1. Logistic Regression Confusion Matrix." width="90%" />
+
+<p class="caption">
+
+Figure 1. Logistic Regression Confusion Matrix.
+
+</p>
+
+</div>
 
 And when looking at the random forest confusion matrix, we see an even
 higher error rate for home team loses at 51.2%, but a lower error rate
-for home team wins at 22%.
-<img src="../img/disp_rf.jpg" title="Figure 1. Logistic Regression Confusion Matrix." alt="Figure 1. Logistic Regression Confusion Matrix." width="90%" />
+for home team wins at
+22%.
+
+<div class="figure">
+
+<img src="../img/disp_rf.jpg" alt="Figure 1. Logistic Regression Confusion Matrix." width="90%" />
+
+<p class="caption">
+
+Figure 1. Logistic Regression Confusion Matrix.
+
+</p>
+
+</div>
+
 
 Unsuprisingly both models failed to predict the tie with only one such
 occurrence in all of the 2019-2020 season.
