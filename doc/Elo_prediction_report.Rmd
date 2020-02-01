@@ -4,7 +4,7 @@ author: "Frank Lu, Simardeep Kaur, Tani Barasch </br>"
 date: "2020/01/25 (updated: `r Sys.Date()`)"
 always_allow_html: true
 output: 
-  html_document:
+  github_document:
     toc: true
 bibliography: nfl_elo.bib
 nocite: '@*'
@@ -38,6 +38,15 @@ We find that both models achieve similar results, with `r score_lr[1,1]`% accura
 The sport of american football has succesfully built a reputation of an unpredictable sport where every game is important and anyone can win, coining the saying "any given Sunday" to mean that anything can happen on a football field, which are usually played on Sundays in the National Football League (NFL). Having several movies being made to this theme such as "Any Given Sunday" (1999), "Remember the Titans" (2000), or more recently the Netflix documentry "Last Chance U" (2016).
 
 At the begining of the 2019 NFL season the website FiveThirtyEight [@fivethirtyeight] launched a [Prediction Game](https://fivethirtyeight.com/features/how-to-play-our-nfl-predictions-game/), in which the website challenges the readers to "beat the experts" who are using the ELO ranking system and prediction formulas to assign a win probability to each team for each game.
+
+## ELO Rating System
+
+ELO rating is a relative ranking system, in which participants gain points by winning/performing better then expected, and have their ranking reduced when they lose/perform worse then expected.
+The system was originally invented by Arpad Elo for the world of chess and has since gained popularity in a few competitive sports as well as online games particularly team games*.
+
+Since the system is relative, a change in ones ranking depends not only on their performance, but also on who the opponent was. Performing well against an opponent with a higher rating will result in a more significant raise in ranking or a smaller lose if one loses, while performing well against a lower ranked opponent will not raise ones rank significantly but may result in a significant lose of points in case of a poor performance.
+
+
 
 In order to test whether or not the hypothesis that NFL games can be predicted using this ELO system, as presented by FiveThirtyEight we train two machine learning classification algorithems, Random Forest and Logistic Regression to predict game winners using only pregame elo ratings for the teams and the starting quarterbacks.
 
