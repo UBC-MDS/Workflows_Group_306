@@ -1,7 +1,9 @@
 Predicting NFL game winners with ELO rating
 ================
 Frank Lu, Simardeep Kaur, Tani Barasch </br>
+
 2020/01/25 (updated: 2020-01-31)
+
 
 # Summary
 
@@ -12,7 +14,9 @@ outcome as presented by the website FiveThirtyEight.com in their ‘NFL
 Prediction Game’.
 
 We find that both models achieve similar results, with 0.771% accuracy
+
 for the logistic regression and 0.756% accuracy for the random forest
+
 classifier. Which overall is a pretty unreliable prediction model,
 casting doubt over the method presented by FiveThirtyEight.
 
@@ -96,13 +100,16 @@ found at the projects github repo
 
 Examining the results of our model, we find that both models, the
 Logistic Regression and Random Forest performed very similarly at 0.771%
+
 and 0.756% accurace respectively. Indicating that although the results
+
 are better then randomly guessing, or flipping a coin, such results are
 hardly reliable.
 
 In the confusion matrix below we can see the “hits and misses” of the
 logistic regression model on the 2019-2020 season games, missing
 relatively more often when the home team loses with a 36.5% error rate
+
 and a 23.2% error rate for home team
 wins.
 
@@ -134,6 +141,7 @@ Figure 1. Logistic Regression Confusion Matrix.
 </p>
 
 </div>
+
 
 Unsuprisingly both models failed to predict the tie with only one such
 occurrence in all of the 2019-2020 season.
