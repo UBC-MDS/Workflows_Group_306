@@ -1,9 +1,7 @@
 Predicting NFL game winners with ELO rating
 ================
 Frank Lu, Simardeep Kaur, Tani Barasch </br>
-
-2020/01/25 (updated: 2020-01-31)
-
+2020/01/25 (updated: 2020-02-01)
 
 # Summary
 
@@ -14,9 +12,7 @@ outcome as presented by the website FiveThirtyEight.com in their ‘NFL
 Prediction Game’.
 
 We find that both models achieve similar results, with 0.771% accuracy
-
-for the logistic regression and 0.756% accuracy for the random forest
-
+for the logistic regression and 0.759% accuracy for the random forest
 classifier. Which overall is a pretty unreliable prediction model,
 casting doubt over the method presented by FiveThirtyEight.
 
@@ -36,6 +32,23 @@ Game](https://fivethirtyeight.com/features/how-to-play-our-nfl-predictions-game/
 in which the website challenges the readers to “beat the experts” who
 are using the ELO ranking system and prediction formulas to assign a win
 probability to each team for each game.
+
+## ELO Rating System
+
+ELO rating is a relative ranking system, in which participants gain
+points by winning/performing better then expected, and have their
+ranking reduced when they lose/perform worse then expected. The system
+was originally invented by Arpad Elo for the world of chess and has
+since gained popularity in a few competitive sports as well as online
+games particularly team games\*.
+
+Since the system is relative, a change in ones ranking depends not only
+on their performance, but also on who the opponent was. Performing well
+against an opponent with a higher rating will result in a more
+significant raise in ranking or a smaller lose if one loses, while
+performing well against a lower ranked opponent will not raise ones rank
+significantly but may result in a significant lose of points in case of
+a poor performance.
 
 In order to test whether or not the hypothesis that NFL games can be
 predicted using this ELO system, as presented by FiveThirtyEight we
@@ -65,6 +78,32 @@ two NFL teams and starting Quarterbacks participating in that specific
 game, along with the date, season, and final score of the game. Where
 the home team is logged as team1 and the away team as team2.
 
+## Choice of Models
+
+In this project, we tried to use two basic algorithms for
+classification. Whenever one talk about classification, random forest is
+the first thing that comes to one’s mind. Random forest can handle
+binary features, categorical features, and numerical features. Also, it
+does not require data to be scaled which reduces a lot of
+pre-processing.
+
+As we know that random forest works by using multiple decision trees.
+All the decision trees involved in random forest operate parallelly,
+which reduces the computation . Random forest perform really well on
+high dimensional data because it works with subsets of data. Since, we
+have large amount of data to process for our training model, random
+forest will be most suitable in that case.
+
+Whenever, we think of a binary classification, logistic regression comes
+to rescue. In this case, there are very few situations where the matches
+were tied, but that number was minute compared to the total number of
+wins and losses. So, the other model we chose was Logistic regression.
+
+Additionally, logistic regression is one of the most simple methods. It
+can be implemented quickly and easily, so it was a baseline model in our
+case. It can be used to compare how a simple models can also perform
+almost similar to complex models.
+
 ## Analysis
 
 We have used two classification models to see how the elo ratings will
@@ -79,18 +118,21 @@ For the data used to train the model, all seasons prior to the 1970 NFL
 merger were filtered out, which is the year the NFL started its shift
 towards the current league structure.
 
-\#\#\#Variables used: From the original file, any variable relating to
-the outcome of the game was removed, such as post game elo score, each
-teams actual score etc’. In addition information which uniquely
-identifies a team outside of the ELO framework, such as team name and QB
-name, were removed since it could bias the results by relating
-information such as team performence for any given season. So, removing
-this identifiers for different teams was an important step to get
-unbiased results.
+### Variables used:
 
-\#\#\#Hyperparameters: For the Random Forest modle, the hyperparameter
-“max\_depth” is chosen using k-fold cross validation using k=5. The
-best hyperparameter was then used to train the model.
+From the original file, any variable relating to the outcome of the game
+was removed, such as post game elo score, each teams actual score etc’.
+In addition information which uniquely identifies a team outside of the
+ELO framework, such as team name and QB name, were removed since it
+could bias the results by relating information such as team performence
+for any given season. So, removing this identifiers for different teams
+was an important step to get unbiased results.
+
+### Hyperparameters:
+
+For the Random Forest modle, the hyperparameter “max\_depth” is chosen
+using k-fold cross validation using k=5. The best hyperparameter was
+then used to train the model.
 
 The code used to run the training and testing of the algorithems can be
 found at the projects github repo
@@ -100,16 +142,17 @@ found at the projects github repo
 
 Examining the results of our model, we find that both models, the
 Logistic Regression and Random Forest performed very similarly at 0.771%
-
-and 0.756% accurace respectively. Indicating that although the results
-
+and 0.759% accurace respectively. Indicating that although the results
 are better then randomly guessing, or flipping a coin, such results are
 hardly reliable.
+
+In this particular case, logistic regression performs slightly better
+than random forest , so we can say that the prediction ability of a
+simple model should not be underestimated.
 
 In the confusion matrix below we can see the “hits and misses” of the
 logistic regression model on the 2019-2020 season games, missing
 relatively more often when the home team loses with a 36.5% error rate
-
 and a 23.2% error rate for home team
 wins.
 
@@ -141,7 +184,6 @@ Figure 1. Logistic Regression Confusion Matrix.
 </p>
 
 </div>
-
 
 Unsuprisingly both models failed to predict the tie with only one such
 occurrence in all of the 2019-2020 season.
