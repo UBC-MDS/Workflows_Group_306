@@ -12,7 +12,7 @@ outcome as presented by the website FiveThirtyEight.com in their ‘NFL
 Prediction Game’.
 
 We find that both models achieve similar results, with 0.771% accuracy
-for the logistic regression and 0.759% accuracy for the random forest
+for the logistic regression and 0.767% accuracy for the random forest
 classifier. Which overall is a pretty unreliable prediction model,
 casting doubt over the method presented by FiveThirtyEight.
 
@@ -142,7 +142,7 @@ found at the projects github repo
 
 Examining the results of our model, we find that both models, the
 Logistic Regression and Random Forest performed very similarly at 0.771%
-and 0.759% accurace respectively. Indicating that although the results
+and 0.767% accurace respectively. Indicating that although the results
 are better then randomly guessing, or flipping a coin, such results are
 hardly reliable.
 
