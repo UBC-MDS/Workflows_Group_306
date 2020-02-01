@@ -4,7 +4,7 @@ author: "Frank Lu, Simardeep Kaur, Tani Barasch </br>"
 date: "2020/01/25 (updated: `r Sys.Date()`)"
 always_allow_html: true
 output: 
-  html_document:
+  github_document:
     toc: true
 bibliography: nfl_elo.bib
 nocite: '@*'
