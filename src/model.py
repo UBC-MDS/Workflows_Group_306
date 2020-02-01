@@ -4,7 +4,7 @@
 
 """ Runs classification model on the cleaned data to get the accuarcy on the test results
 
-Usage: src/model.py --train_file=<train_file> --test_file=<test_file> 
+Usage: src/model.py --train_file=<train_file> --test_file=<test_file>
 
 """
 
@@ -26,9 +26,9 @@ import matplotlib.pyplot as plt
 opt = docopt(__doc__)
 
 def main(train_file, test_file):
-     
 
-    
+
+
     data = pd.read_csv(train_file)
     test_data =  pd.read_csv(test_file)
 
@@ -45,22 +45,22 @@ def main(train_file, test_file):
     X_test = test_data.drop(columns = 'status')
     y_test = test_data['status']
 
-    ## Checking whether X_test has training examples 
+    ## Checking whether X_test has training examples
     try:
         X_test.shape[0] == 0 and X.shape[0]
     except:
         print("Please check the data")
 
-    
+
     #Random forest Classification
     parameters = {'max_depth':[2,4,6]}
     model = RandomForestClassifier()
     clf = GridSearchCV(model, parameters, cv = 5)
-    clf.fit(X, y) 
+    clf.fit(X, y)
     rf_score = clf.score(X_test, y_test)
     rf_data =  pd.DataFrame({'rf_score':[round(rf_score, 3)]})
     rf_data.to_csv(path_or_buf='data/rf_score.csv', index = False)
-    
+
 
     #Logistic Regression
     lr_model = LogisticRegression(solver = 'liblinear')
@@ -68,18 +68,18 @@ def main(train_file, test_file):
     lr_Score = lr_model.score(X_test, y_test)
     lr_data =  pd.DataFrame({'lr_score':[round(lr_Score, 3)]})
     lr_data.to_csv(path_or_buf='data/lr_score.csv', index = False)
-    
-    
+
+
 
     disp = plot_confusion_matrix(clf, X_test, y_test,
-                cmap=plt.cm.Reds, 
+                cmap=plt.cm.Reds,
                 values_format = 'd')
-    plt.savefig('img/disp_rf'+'.jpg')
+    plt.savefig('img/disp_rf.jpg')
 
     disp = plot_confusion_matrix(lr_model, X_test, y_test,
-                cmap=plt.cm.Reds, 
+                cmap=plt.cm.Reds,
                 values_format = 'd')
-    plt.savefig('img/disp_lr'+'.jpg')
+    plt.savefig('img/disp_lr.jpg')
 
 
 if __name__ == "__main__":

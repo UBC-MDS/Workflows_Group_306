@@ -19,28 +19,9 @@ The data for this project will be the same data fivethirtyeigh uses to generate 
 The final report HTML can be found [here](https://github.com/UBC-MDS/Workflows_Group_306/blob/master/doc/Elo_prediction_report.html)
 
 ## Usage
-To run this analysis, clone this github repo, install the dependencies as listen belowm and run the following code in the command line/terminal from the root directory:
+To run this analysis, clone this github repo, install the dependencies as listed below and run the following code in the command line/terminal from the root directory of this project:
 
-```
-# download the two csv files, training set (historic) and testing set (2019)
-python src/download_data.py --url="https://projects.fivethirtyeight.com/nfl-api/nfl_elo.csv" --out_file="data/elo_historic_raw.csv"
-python src/download_data.py --url="https://projects.fivethirtyeight.com/nfl-api/nfl_elo_latest.csv" --out_file="data/elo_2019_raw.csv"
-
-# run data wrangling for both files
-python src/wrangle.py --input="data/elo_historic_raw.csv" --out_dir="data/elo_historic_wrangled.csv"
-python src/wrangle.py --url="data/elo_2019_raw.csv" --out_dir="data/elo_2019_wrangled.csv"
-
-# run eda report
-Rscript -e "rmarkdown::render('src/EDA_milestone2.Rmd')"
-
-#Run random forest and logistic regression on the cleaned data
-python src/model.py --train_file=data/elo_historic_wrangled.csv --test_file=data/elo_2019_wrangled.csv
-
-# run funal report
-Rscript -e "rmarkdown::render('doc/Elo_prediction_report.Rmd')"
-```
-
-## Dependencies
+### Dependencies
 - Python 3.7.3 and Python packages:
   - docopt==0.6.2
   - requests==2.22.0
@@ -49,7 +30,19 @@ Rscript -e "rmarkdown::render('doc/Elo_prediction_report.Rmd')"
 - R version 3.6.1 and R packages:
   - knitr==1.26
   - tidyverse==1.2.1
-  
+- Linux 18.04 LTS
+  - Make==4.1
+
+### Scripts
+- To create the report, run the command below from terminal:
+```
+make all
+```
+
+- To clean all the intermediate files, run the command below:
+```
+make clean
+```
 
 
 ## Refrences
