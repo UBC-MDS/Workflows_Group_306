@@ -59,6 +59,16 @@ The data set used to train and test our algorithems is the same data used by Fiv
 
 Each row in each file contains the ELO ratings pre and post game for the two NFL teams and starting Quarterbacks participating in that specific game, along with the date, season, and final score of the game. Where the home team is logged as team1 and the away team as team2.
 
+## Choice of Models
+
+In this project, we tried to use two basic algorithms for classification. Whenever one talk about classification, random forest is the first thing that comes to one’s mind. Random forest  can handle binary features, categorical features, and numerical features. Also, it does not require data to be scaled which reduces a lot of pre-processing.
+
+As we know that random forest works by using multiple decision trees. All the decision trees involved in random forest operate  parallelly, which reduces the computation .  Random forest perform really well on high dimensional data because it works with subsets of data. Since, we have large amount of data to process for our training model, random forest will be most suitable in that case.
+
+Whenever, we think of a binary classification, logistic regression comes to rescue. In this case, there are very few situations where the matches were tied, but that number was minute compared to the total number of wins and losses. So, the other model we chose was Logistic regression.
+
+Additionally, logistic regression is one of the most simple methods. It can be implemented quickly and easily, so it was a baseline model in our case. It can be used to compare how a simple models can also perform almost similar to complex models.
+
 
 ## Analysis
 We have used two classification models to see how the elo ratings will affect the the predicted scores.
@@ -66,10 +76,10 @@ Using Python [@Python] programming language, and the Scikit-Learn package [@scik
 
 For the data used to train the model, all seasons prior to the 1970 NFL merger were filtered out, which is the year the NFL started its shift towards the current league structure.
 
-###Variables used:
+### Variables used:
 From the original file, any variable relating to the outcome of the game was removed, such as post game elo score, each teams actual score etc'. In addition information which uniquely identifies a team outside of the ELO framework, such as team name and QB name, were removed since it could bias the results by relating information such as team performence for any given season. So, removing this identifiers for different teams was an important step to get unbiased results.
 
-###Hyperparameters:
+### Hyperparameters:
 For the Random Forest modle, the hyperparameter “max_depth” is chosen using k-fold cross validation using k=5. The best hyperparameter was then used to train the model.
 
 The code used to run the training and testing of the algorithems can be found at the projects github repo [here](https://github.com/UBC-MDS/Workflows_Group_306): 
@@ -78,6 +88,8 @@ The code used to run the training and testing of the algorithems can be found at
 # Results & Discussion
 
 Examining the results of our model, we find that both models, the Logistic Regression and Random Forest performed very similarly at `r score_lr[1,1]`% and `r score_rf[1,1]`% accurace respectively. Indicating that although the results are better then randomly guessing, or flipping a coin, such results are hardly reliable.
+
+In this particular case, logistic regression performs slightly better than random forest , so we can say that the prediction ability of a simple model should not be underestimated.
 
 In the confusion matrix below we can see the "hits and misses" of the logistic regression model on the 2019-2020 season games, missing relatively more often when the home team loses with a 36.5% error rate and a 23.2% error rate for home team wins.
 ```{r Confusion Matrix 1, echo=FALSE, fig.cap="Figure 1. Logistic Regression Confusion Matrix.", out.width = '90%'}
