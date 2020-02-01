@@ -6,14 +6,13 @@ params:
   elo_vs_result: '../data/eda-elo_vs_result.csv'
   elo_lnrg: "../img/elo_lnrg.png"
   elo_update: '../img/eda-ELO_change_with_result.png'
-output: 
+output:
   github_document:
     pandoc_args: --webtex
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message=FALSE)
-library(marmap)
 library(ggplot2)
 library(reticulate)
 library(tidyverse)
@@ -112,7 +111,7 @@ c2 = np.array(df_xs_reg['is_winner'])
 fig, ax = plt.subplots()
 ax.scatter(x, y, alpha = 0.2)
 ax.plot(x, y0 + m * x, color='red')
-ax.set(xlabel='difference in ELO', 
+ax.set(xlabel='difference in ELO',
         ylabel='difference in score', title = 'Score vs pre-game ELO')
 ax.legend()
 ax.grid()
