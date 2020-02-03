@@ -74,12 +74,12 @@ def main(train_file, test_file):
     disp = plot_confusion_matrix(clf, X_test, y_test,
                 cmap=plt.cm.Reds,
                 values_format = 'd')
-    plt.savefig('img/disp_rf.jpg')
+    plt.savefig('img/disp_rf.png')
 
     disp = plot_confusion_matrix(lr_model, X_test, y_test,
                 cmap=plt.cm.Reds,
                 values_format = 'd')
-    plt.savefig('img/disp_lr.jpg')
+    plt.savefig('img/disp_lr.png')
 
 
 if __name__ == "__main__":

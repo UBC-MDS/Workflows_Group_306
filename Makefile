@@ -30,6 +30,6 @@ Elo_prediction_report.md : src/Elo_prediction_report.Rmd data/lr_score.csv data/
 clean :
 	rm -f data/*.csv
 	rm -f img/eda-*.png
-	rm -f img/disp*.jpg
+	rm -f img/disp*.png
 	rm -rf doc/EDA/
 	rm -f doc/Elo_prediction*
