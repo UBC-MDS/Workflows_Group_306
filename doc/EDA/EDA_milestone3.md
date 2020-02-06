@@ -57,24 +57,24 @@ EDA
 
 ## Correlation between columns
 
-<img src="/home/franklu/MDS/Workflows_Group_306/doc/EDA/EDA_milestone3_files/figure-gfm/correlation heatmap-1.png" width="672" />
+![](/home/simardeep/Documents/block4/Workflows_Group_306/doc/EDA/EDA_milestone3_files/figure-gfm/correlation%20heatmap-1.png)<!-- -->
 
 ## Because of the major rule change effective in 1970, remove data points before 1970
 
-    ## /home/franklu/anaconda3/lib/python3.7/site-packages/pandas/core/indexing.py:376: SettingWithCopyWarning: 
+    ## /home/simardeep/anaconda3/lib/python3.7/site-packages/pandas/core/indexing.py:376: SettingWithCopyWarning: 
     ## A value is trying to be set on a copy of a slice from a DataFrame.
     ## Try using .loc[row_indexer,col_indexer] = value instead
     ## 
     ## See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
     ##   self.obj[key] = _infer_fill_value(value)
-    ## /home/franklu/anaconda3/lib/python3.7/site-packages/pandas/core/indexing.py:494: SettingWithCopyWarning: 
+    ## /home/simardeep/anaconda3/lib/python3.7/site-packages/pandas/core/indexing.py:494: SettingWithCopyWarning: 
     ## A value is trying to be set on a copy of a slice from a DataFrame.
     ## Try using .loc[row_indexer,col_indexer] = value instead
     ## 
     ## See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
     ##   self.obj[item] = s
 
-    ## /home/franklu/anaconda3/bin/python:1: FutureWarning: The signature of `Series.to_csv` was aligned to that of `DataFrame.to_csv`, and argument 'header' will change its default value from False to True: please pass an explicit value to suppress this warning.
+    ## /home/simardeep/anaconda3/bin/python3:1: FutureWarning: The signature of `Series.to_csv` was aligned to that of `DataFrame.to_csv`, and argument 'header' will change its default value from False to True: please pass an explicit value to suppress this warning.
 
     ##             season playoff     elo1_pre     elo2_pre    elo1_post  ...    elo_diff  score_diff  is_winner  elo_change_aftergame  elo_vs_result
     ## Unnamed: 0                                                         ...                                                                        
@@ -96,5 +96,5 @@ EDA
 
     ## [Text(0, 0.5, 'difference in score'), Text(0.5, 0, 'difference in ELO'), Text(0.5, 1.0, 'Score vs pre-game ELO')]
 
-<img src="/home/franklu/MDS/Workflows_Group_306/doc/EDA/EDA_milestone3_files/figure-gfm/plots-1.png" width="672" />
-![](/home/franklu/MDS/Workflows_Group_306/doc/EDA/EDA_milestone3_files/figure-gfm/plot-1.png)<!-- -->
+![](/home/simardeep/Documents/block4/Workflows_Group_306/doc/EDA/EDA_milestone3_files/figure-gfm/plots-1.png)<!-- -->
+![](/home/simardeep/Documents/block4/Workflows_Group_306/doc/EDA/EDA_milestone3_files/figure-gfm/plot-1.png)<!-- -->
