@@ -68,7 +68,7 @@ The system was originally invented by Arpad Elo for the world of chess [@wiki-el
 
 ## Data
 
-The data set used to train and test our algorithms is the same data used by FiveThirtyEight[@fivethirtyeight] in their game, which can be found [here](https://github.com/fivethirtyeight/data/tree/master/nfl-elo). Specifically the file found [here](https://projects.fivethirtyeight.com/nfl-api/nfl_elo.csv) containing historic NFL ratings and outcomes starting in 1920 was used to train the algorithms, and testing the predictions were done on the following file containing all [2019-2020](https://projects.fivethirtyeight.com/nfl-api/nfl_elo_latest.csv) NFL games and outcomes (excluding the Superbowl which has yet to be played.) 
+The data set used to train and test our algorithms is the same data used by FiveThirtyEight[@fivethirtyeight] in their game, which can be found [here](https://github.com/fivethirtyeight/data/tree/master/nfl-elo). Specifically the file found [here](https://projects.fivethirtyeight.com/nfl-api/nfl_elo.csv) containing historic NFL ratings and outcomes starting in 1920 was used to train the algorithms, and testing the predictions were done on the following file containing all [2019-2020](https://projects.fivethirtyeight.com/nfl-api/nfl_elo_latest.csv) NFL games and outcomes (excluding the Superbowl which has yet to be played.)
 
 Each row in each file contains the ELO ratings pre and post game for the two NFL teams and starting Quarterbacks participating in that specific game, along with the date, season, and final score of the game. Where the home team is logged as team1 and the away team as team2. All these ranking were calculated by FiveThirtyEight and used as is in order to stay as close as possible to the original data which they claim has some merit in predicting the outcomes.
 
@@ -101,7 +101,7 @@ From the original file, any variable relating to the outcome of the game was rem
 For the Random Forest modle, the hyperparameter “max_depth” is chosen using k-fold cross validation using k=5. The best hyperparameter was then used to train the model.
 
 
-The code used to run the training and testing of the algorithems can be found at the projects github repo [here](https://github.com/UBC-MDS/Workflows_Group_306): 
+The code used to run the training and testing of the algorithems can be found at the projects github repo [here](https://github.com/UBC-MDS/Workflows_Group_306):
 
 
 # Results & Discussion
@@ -112,12 +112,12 @@ In this particular case, logistic regression performs slightly better than rando
 
 In the confusion matrix below we can see the "hits and misses" of the logistic regression model on the 2019-2020 season games, missing relatively more often when the home team loses with a 36.5% error rate and a 23.2% error rate for home team wins.
 ```{r Confusion Matrix 1, echo=FALSE, fig.cap="Figure 1. Logistic Regression Confusion Matrix.", out.width = '90%'}
-knitr::include_graphics("../img/disp_lr.jpg")
+knitr::include_graphics("../img/disp_lr.png")
 ```
 
 And when looking at the random forest confusion matrix, we see an even higher error rate for home team loses at 51.2%, but a lower error rate for home team wins at 22%.
 ```{r Confusion Matrix 2, echo=FALSE, fig.cap="Figure 1. Logistic Regression Confusion Matrix.", out.width = '90%'}
-knitr::include_graphics("../img/disp_rf.jpg")
+knitr::include_graphics("../img/disp_rf.png")
 ```
 
 Unsuprisingly both models failed to predict the tie with only one such occurrence in all of the 2019-2020 season.
@@ -127,6 +127,3 @@ With both models prediction accuracy below 80%, its would be hard to proclaim th
 That being said it is possible that a regression method to predict the scores would do better, or alternatively including ELO ratings in a more complex and robust model could prove usefull.
 
 # References
-
-
-
