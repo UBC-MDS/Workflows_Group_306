@@ -1,19 +1,7 @@
 Predicting NFL game winners with ELO rating
 ================
 Frank Lu, Simardeep Kaur, Tani Barasch </br>
-2020/01/25 (updated: 2020-02-02)
-
-  - [Summary](#summary)
-  - [Introduction](#introduction)
-      - [ELO Rating System](#elo-rating-system)
-  - [Methods](#methods)
-      - [Data](#data)
-      - [Choice of Models](#choice-of-models)
-      - [Analysis](#analysis)
-          - [Variables used:](#variables-used)
-          - [Hyperparameters:](#hyperparameters)
-  - [Results & Discussion](#results-discussion)
-  - [References](#references)
+2020/01/25 (updated: 2020-02-07)
 
 # Summary
 
@@ -24,7 +12,7 @@ outcome as presented by the website FiveThirtyEight.com in their ‘NFL
 Prediction Game’.
 
 We find that both models achieve similar results, with 0.772% accuracy
-for the logistic regression and 0.764% accuracy for the random forest
+for the logistic regression and 0.757% accuracy for the random forest
 classifier. Which overall is a pretty unreliable prediction model,
 casting doubt over the method presented by FiveThirtyEight.
 
@@ -171,7 +159,7 @@ found at the projects github repo
 
 Examining the results of our model, we find that both models, the
 Logistic Regression and Random Forest performed very similarly at 0.772%
-and 0.764% accurace respectively. Indicating that although the results
+and 0.757% accurace respectively. Indicating that although the results
 are better then randomly guessing, or flipping a coin, such results are
 hardly reliable.
 
@@ -182,7 +170,8 @@ simple model should not be underestimated.
 In the confusion matrix below we can see the “hits and misses” of the
 logistic regression model on the 2019-2020 season games, missing
 relatively more often when the home team loses with a 36.5% error rate
-and a 23.2% error rate for home team wins.
+and a 23.2% error rate for home team
+wins.
 
 <div class="figure">
 
@@ -198,7 +187,8 @@ Figure 1. Logistic Regression Confusion Matrix.
 
 And when looking at the random forest confusion matrix, we see an even
 higher error rate for home team loses at 51.2%, but a lower error rate
-for home team wins at 22%.
+for home team wins at
+22%.
 
 <div class="figure">
 
@@ -225,7 +215,7 @@ complex and robust model could prove usefull.
 
 # References
 
-<div id="refs" class="references hanging-indent">
+<div id="refs" class="references">
 
 <div id="ref-docopt">
 
