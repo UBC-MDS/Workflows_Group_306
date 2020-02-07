@@ -35,9 +35,11 @@ RUN wget --quiet https://repo.anaconda.com/archive/Anaconda3-2019.10-Linux-x86_6
 # put anaconda python in path
 ENV PATH="/opt/conda/bin:${PATH}"
 
+ENV RETICULATE_PYTHON="/opt/conda/bin/python"
+
 RUN conda config --set allow_conda_downgrades true
 
-RUN conda install conda=4.6.11 
+RUN conda install conda=4.6.11
 
 # install docopt python package
 RUN conda install -y -c anaconda \
