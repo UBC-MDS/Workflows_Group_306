@@ -34,6 +34,8 @@ To run this analysis, clone this github repo, install the dependencies as listed
   - Make==4.1
 
 ### Scripts
+
+#### To run with a Docker container:
 - First, we clean all the intermediate files from previous execution, run the command below:
 ```
 docker run --rm -e PASSWORD="ppp" -p 8787:8787 -v $(pwd):/mnt tbarasch/g306_522 make -C /mnt clean
@@ -42,6 +44,17 @@ docker run --rm -e PASSWORD="ppp" -p 8787:8787 -v $(pwd):/mnt tbarasch/g306_522 
 - Then create the report by running the command below from terminal:
 ```
 docker run --rm -e PASSWORD="ppp" -p 8787:8787 -v $(pwd):/mnt tbarasch/g306_522 make -C /mnt all
+```
+
+#### To run on your own system:
+- Clone this repo, and run the command below from the repo root in terminal:
+```
+make all
+```
+
+- To clean all the intermediate files, run the command below:
+```
+make clean
 ```
 
 
