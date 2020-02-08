@@ -92,6 +92,11 @@ df_xs_reg.loc[:, 'elo_vs_result'] = np.select(conditions, choices, default = 'no
 elo_vs_result = df_xs_reg.groupby('elo_vs_result')['elo_vs_result'].count()
 elo_vs_result.to_csv(r.params['elo_vs_result'])
 
+try:
+  pd.read_csv(r.params['elo_vs_result'])
+except:
+  raise Exception("File not saved")
+
 df_xs_reg
 ```
 

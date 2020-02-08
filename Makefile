@@ -31,5 +31,6 @@ clean :
 	rm -f data/*.csv
 	rm -f img/eda-*.png
 	rm -f img/disp*.png
+	rm -f img/disp*.jpg
 	rm -rf doc/EDA/
 	rm -f doc/Elo_prediction*
