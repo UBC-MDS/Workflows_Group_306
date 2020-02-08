@@ -1,7 +1,7 @@
 Predicting NFL game winners with ELO rating
 ================
 Frank Lu, Simardeep Kaur, Tani Barasch </br>
-2020/01/25 (updated: 2020-02-07)
+2020/01/25 (updated: 2020-02-08)
 
 # Summary
 
@@ -12,7 +12,7 @@ outcome as presented by the website FiveThirtyEight.com in their ‘NFL
 Prediction Game’.
 
 We find that both models achieve similar results, with 0.772% accuracy
-for the logistic regression and 0.753% accuracy for the random forest
+for the logistic regression and 0.749% accuracy for the random forest
 classifier. Which overall is a pretty unreliable prediction model,
 casting doubt over the method presented by FiveThirtyEight.
 
@@ -101,20 +101,21 @@ In this project, we tried to use two basic algorithms for
 classification. Whenever one talk about classification, random forest is
 the first thing that comes to one’s mind. Random forest can handle
 binary features, categorical features, and numerical features. Also, it
-does not require data to be scaled which reduces a lot of
-pre-processing.
+does not require data to be scaled which reduces a lot of pre-processing
+and possible information loss.
 
 As we know that random forest works by using multiple decision trees.
 All the decision trees involved in random forest operate in parallel,
-which reduces the computation . Random forest perform really well on
-high dimensional data because it works with subsets of data. Since, we
-have large amount of data to process for our training model, random
-forest will be most suitable in that case.
+which reduces the computation. Random forest perform really well on high
+dimensional data because it works with subsets of data. Since, we have
+large amount of data to process for our training model, random forest
+will be most suitable in that case.
 
-Whenever, we think of a binary classification, logistic regression comes
-to rescue. In this case, there are very few situations where the matches
-were tied, but that number was minute compared to the total number of
-wins and losses. So, the other model we chose was Logistic regression.
+Whenever, we think of a binary classification, logistic regression is
+one of the most common algorithms used. In this case, there are very few
+situations where the matches were tied, but that number was minute
+compared to the total number of wins and losses. So, the other model we
+chose was Logistic regression.
 
 Additionally, logistic regression is one of the most simple methods. It
 can be implemented quickly and easily, so it was a baseline model in our
@@ -123,11 +124,11 @@ almost similar to complex models.
 
 ## Analysis
 
-We have used two classification models to see how the elo ratings will
+We have used two classification models to see how the ELO ratings will
 affect the the predicted scores. Using Python (Van Rossum and Drake
 2009) programming language, and the Scikit-Learn package (Pedregosa et
 al. 2011) we trained a Logistic Regression and Random Forest
-classification algorithems. Since it would be redundent to predict both
+classification algorithms. Since it would be redundant to predict both
 winner and loser for a single game, all predictions were made in
 relation to the home team, with 3 possible outcomes: Win, Tie, Lose.
 
@@ -138,28 +139,28 @@ towards the current league structure.
 ### Variables used:
 
 From the original file, any variable relating to the outcome of the game
-was removed, such as post game elo score, each teams actual score etc’.
+was removed, such as post game ELO score, each teams actual score etc’.
 In addition information which uniquely identifies a team outside of the
 ELO framework, such as team name and QB name, were removed since it
-could bias the results by relating information such as team performence
+could bias the results by relating information such as team performance
 for any given season. So, removing this identifiers for different teams
 was an important step to get unbiased results.
 
 ### Hyperparameters:
 
-For the Random Forest modle, the hyperparameter “max\_depth” is chosen
+For the Random Forest model, the hyperparameter “max\_depth” is chosen
 using k-fold cross validation using k=5. The best hyperparameter was
 then used to train the model.
 
-The code used to run the training and testing of the algorithems can be
+The code used to run the training and testing of the algorithms can be
 found at the projects github repo
 [here](https://github.com/UBC-MDS/Workflows_Group_306):
 
 # Results & Discussion
 
 Examining the results of our model, we find that both models, the
-Logistic Regression and Random Forest performed very similarly at 0.772%
-and 0.753% accurace respectively. Indicating that although the results
+Logistic Regression and Random Forest performed very similarly at 0.772
+and 0.749 accuracy respectively. Indicating that although the results
 are better then randomly guessing, or flipping a coin, such results are
 hardly reliable.
 
@@ -192,28 +193,49 @@ for home team wins at
 
 <div class="figure">
 
-<img src="../img/disp_rf.png" alt="Figure 1. Logistic Regression Confusion Matrix." width="90%" />
+<img src="../img/disp_rf.png" alt="Figure 2. Random Forest Confusion Matrix." width="90%" />
 
 <p class="caption">
 
-Figure 1. Logistic Regression Confusion Matrix.
+Figure 2. Random Forest Confusion Matrix.
 
 </p>
 
 </div>
 
-Unsuprisingly both models failed to predict the tie with only one such
+Unsurprisingly both models failed to predict the tie with only one such
 occurrence in all of the 2019-2020 season.
 
 With both models prediction accuracy below 80%, its would be hard to
 proclaim the ELO rating system as a reliable method to predict NFL game
-winners.
+winners. This is also not too surprising in a sport that is notoriously
+hard to predict, according the
+[fantasyfootballnerd](https://www.fantasyfootballnerd.com/nfl-picks/accuracy)
+website, the most accurate expert in game winning prediction, Kevin
+Seifert, only had a 62% overall accuracy for 2019, which is 167 out of
+256 correctly picked games.
 
-That being said it is possible that a regression method to predict the
-scores would do better, or alternatively including ELO ratings in a more
-complex and robust model could prove usefull.
+All this indicated that at least some of the assumption made in this
+work are unreliable, either the relationship between ELO ratings and
+game winner is not simple and requires a more complex model, or
+“squeezing” the target down from score outcome to winner and loser is
+incorrect, or possibly and even likely a simple ELO ratings data set is
+not suitable to actually predict such a thing, possibly because it does
+not capture enough of the variance,
 
-# References
+The first two reasons above could be tested for by using different more
+complex models, and by returning to a regression prediction of score, or
+difference in score. However the third possibility which would seem to
+us to be likely enough to be taken seriously, would dictate that no such
+model based on ELO ratings can be found, this is particularly compelling
+due to the range of variables that actually affect the outcome of an NFL
+game, from the possibility of a player waking of with the flu to the
+quality of equipment, and PSI of the football, to more constructed
+variables such as game plan and specific play calling.
+
+And therefore it would seem like a good idea to search for a predictive
+model elsewhere using a different and wider set of data to do so. \#
+References
 
 <div id="refs" class="references">
 

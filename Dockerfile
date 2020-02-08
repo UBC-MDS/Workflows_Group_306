@@ -52,3 +52,5 @@ RUN conda install -y -c anaconda \
     matplotlib
 
 RUN conda install -y -c conda-forge feather-format
+
+CMD /bin/bash
