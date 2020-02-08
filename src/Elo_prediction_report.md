@@ -3,6 +3,18 @@ Predicting NFL game winners with ELO rating
 Frank Lu, Simardeep Kaur, Tani Barasch </br>
 2020/01/25 (updated: 2020-02-07)
 
+  - [Summary](#summary)
+  - [Introduction](#introduction)
+      - [ELO Rating System](#elo-rating-system)
+  - [Methods](#methods)
+      - [Data](#data)
+      - [Choice of Models](#choice-of-models)
+      - [Analysis](#analysis)
+          - [Variables used:](#variables-used)
+          - [Hyperparameters:](#hyperparameters)
+  - [Results & Discussion](#results-discussion)
+  - [References](#references)
+
 # Summary
 
 In this project we attempt to predict NFL game winners using
@@ -158,8 +170,8 @@ found at the projects github repo
 # Results & Discussion
 
 Examining the results of our model, we find that both models, the
-Logistic Regression and Random Forest performed very similarly at 0.772%
-and 0.753% accurace respectively. Indicating that although the results
+Logistic Regression and Random Forest performed very similarly at 77.2%
+and 75.3% accurace respectively. Indicating that although the results
 are better then randomly guessing, or flipping a coin, such results are
 hardly reliable.
 
@@ -170,37 +182,13 @@ simple model should not be underestimated.
 In the confusion matrix below we can see the “hits and misses” of the
 logistic regression model on the 2019-2020 season games, missing
 relatively more often when the home team loses with a 36.5% error rate
-and a 23.2% error rate for home team
-wins.
-
-<div class="figure">
-
-<img src="../img/disp_lr.png" alt="Figure 1. Logistic Regression Confusion Matrix." width="90%" />
-
-<p class="caption">
-
-Figure 1. Logistic Regression Confusion Matrix.
-
-</p>
-
-</div>
+and a 23.2% error rate for home team wins.
+<img src="../img/disp_lr.png" title="Figure 1. Logistic Regression Confusion Matrix." alt="Figure 1. Logistic Regression Confusion Matrix." width="90%" />
 
 And when looking at the random forest confusion matrix, we see an even
 higher error rate for home team loses at 51.2%, but a lower error rate
-for home team wins at
-22%.
-
-<div class="figure">
-
-<img src="../img/disp_rf.png" alt="Figure 1. Logistic Regression Confusion Matrix." width="90%" />
-
-<p class="caption">
-
-Figure 1. Logistic Regression Confusion Matrix.
-
-</p>
-
-</div>
+for home team wins at 22%.
+<img src="../img/disp_rf.png" title="Figure 1. Logistic Regression Confusion Matrix." alt="Figure 1. Logistic Regression Confusion Matrix." width="90%" />
 
 Unsuprisingly both models failed to predict the tie with only one such
 occurrence in all of the 2019-2020 season.
