@@ -54,7 +54,7 @@ significantly but may result in a significant lose of points in case of
 a poor performance.
 
 In general the expected performance of player A is depicted with the
-following equation: \[E(A) = \frac{1}{1+10^{(\frac{R_A - R_B}{400})}}\]
+following equation: $\[E(A) = \frac{1}{1+10^{(\frac{R_A - R_B}{400})}}\]$
 where \(R_A\) is the rating of player A, and \(E(A) + E(B) = 1\).
 
 And the change in ranking is generally depicted with the following
